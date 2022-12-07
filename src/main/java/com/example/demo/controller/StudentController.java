@@ -1,10 +1,9 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.Student;
+import com.example.demo.service.StudentService;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,6 +18,23 @@ public class StudentController {
         return studentService.getAllStudents();
     }
 
-    // todo: POST, PUT, DELETE mappings
-    //  Tests
+    @GetMapping(path = "{id}")
+    public Student fetchStudentById(@PathVariable("id") String id) {
+        return studentService.getStudentById(id);
+    }
+
+    @PutMapping(path = "{id}")
+    public int updateStudent(@RequestBody Student student) {
+        return studentService.updateStudent(student);
+    }
+
+    @PostMapping
+    public int addStudent(@RequestBody Student student) {
+        return studentService.insertStudent(student);
+    }
+
+    @DeleteMapping("{id}")
+    public int deleteStudent(@PathVariable("id") String id) {
+        return studentService.removeStudentById(id);
+    }
 }
